@@ -69,7 +69,8 @@ export default function Dashboard() {
 
   return (
     <Box p={3}>
-      <Typography variant="h4" mb={3}>
+      <Typography variant="h4" mb={3}   sx={{ marginBottom: '20px' }}
+>
         Employee Dashboard
       </Typography>
 
@@ -117,7 +118,8 @@ export default function Dashboard() {
       </Grid>
 
       <Box mt={5}>
-        <Typography variant="h5" mb={2}>
+        <Typography variant="h5" mb={3}   sx={{ marginBottom: '20px' }}
+>
           Salary by Department
         </Typography>
 
@@ -164,7 +166,8 @@ export default function Dashboard() {
       </Box>
 
       <Box mt={5}>
-        <Typography variant="h5" mb={2}>
+        <Typography variant="h5" mb={3}   sx={{ marginBottom: '20px', marginTop: '20px' }}
+>
           Salary by Designation
         </Typography>
 

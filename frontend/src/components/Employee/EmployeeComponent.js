@@ -37,15 +37,24 @@ export default function EmployeeComponent() {
     severity: "success",
   });
 
+    const [rowCount, setRowCount] = useState(0);
+
+const [paginationModel, setPaginationModel] = useState({
+  page: 0,
+  pageSize: 10,
+});
+
+
   const loadEmployees = async () => {
     try {
       setLoading(true);
 
-      const response = await getEmployees();
+      const response = await getEmployees(paginationModel.page + 1, paginationModel.pageSize);
+
 
       if(response.status === 200 &&  response.data){
       setEmployees(response.data.data);
-
+      setRowCount(response.data.meta.total);
       }else {
       showSnackbar("Failed to load employees", "error");
       }
@@ -59,7 +68,7 @@ export default function EmployeeComponent() {
 
   useEffect(() => {
     loadEmployees();
-  }, []);
+  }, [paginationModel]);
 
   const showSnackbar = (message, severity) => {
     setSnackbar({
@@ -87,9 +96,17 @@ export default function EmployeeComponent() {
   const saveEmployee = async (employee) => {
     try {
       if (employee.id) {
+        delete employee.department; // Remove the department property before sending the update request
+        delete employee.designation; // Remove the designation property before sending the update request
         await updateEmployee(employee.id, employee);
         showSnackbar("Employee Updated", "success");
       } else {
+        delete employee.id; // Remove the id property before sending the add request
+        delete employee.name
+        console.log(employee);
+
+        debugger;
+
         await addEmployee(employee);
         showSnackbar("Employee Added", "success");
       }
@@ -129,6 +146,9 @@ export default function EmployeeComponent() {
               employees={employees}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              rowCount={rowCount}
+              paginationModel={paginationModel}
+              setPaginationModel={setPaginationModel}
             />
           )}
         </Paper>

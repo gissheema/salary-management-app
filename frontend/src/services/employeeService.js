@@ -7,8 +7,13 @@ const API = axios.create({
   },
 });
 
-export const getEmployees = async () => {
-  return await API.get("/");
+export const getEmployees = async (page, pageSize) => {
+  return await API.get("/", {
+    params: {
+      page,
+      pageSize,
+    },
+  });
 };
 
 export const getEmployee = async (id) => {

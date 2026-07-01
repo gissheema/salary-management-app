@@ -39,16 +39,17 @@ export default function EmployeeDialog({
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.firstName]: e.target.value,
+      [e.target.name]: e.target.value,
     }));
 
     setErrors((prev) => ({
       ...prev,
-      [e.target.firstName]: "",
+      [e.target.name]: "",
     }));
   };
 
   const validate = () => {
+
     let temp = {};
 
     if (!formData.firstName.trim())
@@ -66,8 +67,8 @@ export default function EmployeeDialog({
     )
       temp.email = "Invalid email";
 
-    if (!formData.department.trim())
-      temp.department = "Department is required";
+    // if (!formData.department.trim())
+    //   temp.department = "Department is required";
 
     if (
       formData.salary === "" ||

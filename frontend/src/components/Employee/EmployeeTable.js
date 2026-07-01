@@ -18,12 +18,14 @@ export default function EmployeeTable({
   employees,
   onEdit,
   onDelete,
+  rowCount,
+  paginationModel,
+  setPaginationModel
 }) {
   const [search, setSearch] = useState("");
 
   const filteredEmployees = useMemo(() => {
 
-    console.log("employees", employees);
     return employees.filter((emp) => {
       const value = search.toLowerCase();
 
@@ -116,7 +118,7 @@ export default function EmployeeTable({
         />
       </Stack>
 
-      <DataGrid
+      {/* <DataGrid
         rows={filteredEmployees}
         columns={columns}
         autoHeight
@@ -129,7 +131,18 @@ export default function EmployeeTable({
           },
         }}
         disableRowSelectionOnClick
-      />
+      /> */}
+
+      <DataGrid
+  rows={filteredEmployees}
+  columns={columns}
+  pagination
+  paginationMode="server"
+  rowCount={rowCount}
+  paginationModel={paginationModel}
+  onPaginationModelChange={setPaginationModel}
+  
+/>
     </Box>
   );
 }

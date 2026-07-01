@@ -7,7 +7,6 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-
 function EmployeeForm({ saveEmployee, selectedEmployee }) {
   const [employee, setEmployee] = useState({
     firstName: "",
@@ -21,7 +20,7 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
     if (selectedEmployee) {
       setEmployee(selectedEmployee);
     }
-  }, [selectedEmployee]);
+  }, [selectedEmployee])
 
   const handleChange = (e) => {
     setEmployee({
@@ -33,7 +32,6 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     saveEmployee(employee);
-
     setEmployee({
       firstName: "",
       lastName: "",
