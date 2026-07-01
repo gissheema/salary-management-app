@@ -31,6 +31,21 @@ export class EmployeeRepository {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        designation: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        department: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+
     });
   }
 

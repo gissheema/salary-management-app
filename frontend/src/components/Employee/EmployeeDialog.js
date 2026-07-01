@@ -145,7 +145,7 @@ export default function EmployeeDialog({
               fullWidth
               label="Department"
               name="department"
-              value={formData.department}
+              value={formData.department?.name}
               onChange={handleChange}
               error={!!errors.department}
               helperText={errors.department}

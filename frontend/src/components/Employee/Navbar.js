@@ -20,7 +20,7 @@ export default function Navbar({ onAdd }) {
             fontWeight: 600,
           }}
         >
-          Salary Management System
+          Employee Management
         </Typography>
 
         <Button

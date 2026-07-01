@@ -137,7 +137,7 @@ export default function Dashboard() {
             <TableBody>
               {dashboard.salaryByDepartment.map((dept) => (
                 <TableRow key={dept.departmentId}>
-                  <TableCell>{dept.departmentId}</TableCell>
+                  <TableCell>{dept.departmentName}</TableCell>
 
                   <TableCell>{dept._count._all}</TableCell>
 
@@ -184,7 +184,7 @@ export default function Dashboard() {
             <TableBody>
               {dashboard.salaryByDesignation.map((item) => (
                 <TableRow key={item.designationId}>
-                  <TableCell>{item.designationId}</TableCell>
+                  <TableCell>{item.designationName}</TableCell>
 
                   <TableCell>{item._count._all}</TableCell>
 

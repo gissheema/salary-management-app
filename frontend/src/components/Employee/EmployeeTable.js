@@ -31,7 +31,7 @@ export default function EmployeeTable({
         emp.firstName?.toLowerCase().includes(value) ||
         emp.lastName?.toLowerCase().includes(value) ||
         emp.email?.toLowerCase().includes(value) ||
-        emp.department?.toLowerCase().includes(value)
+        emp.department?.name?.toLowerCase().includes(value)
       );
     });
   }, [employees, search]);
@@ -58,9 +58,10 @@ export default function EmployeeTable({
       flex: 1.5,
     },
     {
-      field: "department",
+      field: "department.name",
       headerName: "Department",
       flex: 1,
+      valueGetter: (value, row) => row.department?.name,
     },
     {
       field: "salary",
