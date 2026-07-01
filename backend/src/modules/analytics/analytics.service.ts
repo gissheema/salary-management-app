@@ -9,18 +9,23 @@ export class AnalyticsService {
       activeEmployees,
       inactiveEmployees,
       recentEmployees,
+      averageSalary,
+      highestSalary,
+      lowestSalary,
+      salaryByDepartment,
+      salaryByDesignation
     ] = await Promise.all([
       prisma.employee.count(),
 
       prisma.employee.count({
         where: {
-          employmentStatus:  'ACTIVE',
+          employmentStatus: 'ACTIVE',
         },
       }),
 
       prisma.employee.count({
         where: {
-          employmentStatus:  'INACTIVE',
+          employmentStatus: 'INACTIVE',
         },
       }),
 
@@ -36,6 +41,55 @@ export class AnalyticsService {
           },
         },
       }),
+      prisma.employee.aggregate({
+        _avg: {
+          salary: true
+        }
+      }),
+      prisma.employee.aggregate({ _max: { salary: true } }),
+      prisma.employee.aggregate({ _min: { salary: true } }),
+      prisma.employee.groupBy({
+        by: ['departmentId'],
+        _sum: {
+          salary: true,
+        },
+        _avg: {
+          salary: true,
+        },
+        _min: {
+          salary: true,
+        },
+        _max: {
+          salary: true,
+        },
+        _count: {
+          _all: true,
+        },
+
+      }),
+
+      prisma.employee.groupBy({
+        by: ['designationId'],
+        _sum: {
+          salary: true,
+        },
+        _avg: {
+          salary: true,
+        },
+        _min: {
+          salary: true,
+        },
+        _max: {
+          salary: true,
+        },
+        _count: {
+          _all: true,
+        },
+
+      })
+
+
+
     ]);
 
     return {
@@ -43,6 +97,11 @@ export class AnalyticsService {
       activeEmployees,
       inactiveEmployees,
       recentEmployees,
+      averageSalary,
+      highestSalary,
+      lowestSalary,
+      salaryByDepartment,
+      salaryByDesignation
     };
   }
 }
