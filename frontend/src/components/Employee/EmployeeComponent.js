@@ -140,6 +140,15 @@ export default function EmployeeComponent() {
     setSelectedEmployee(employee);
     setDeleteDialog(true);
   };
+  const countries = [
+  { country: "India", currency: "INR" },
+  { country: "USA", currency: "USD" },
+  { country: "UK", currency: "GBP" },
+  { country: "Canada", currency: "CAD" },
+  { country: "Australia", currency: "AUD" },
+  { country: "Singapore", currency: "SGD" },
+];
+
 
   const saveEmployee = async (employee) => {
     try {
@@ -153,8 +162,10 @@ export default function EmployeeComponent() {
         delete employee.name;
         employee.department = employee.departmentId; // Remove the department property before sending the update request
         employee.designation = employee.designationId; // Remove the designation property before sending the update request
-        employee.country = 'India';
-        employee.currency = 'INR';
+       const selectedCountry = countries.find(c => c.country === employee.country);
+        if (selectedCountry) {
+          employee.currency = selectedCountry.currency;
+        }
         delete employee.departmentId; // Remove the departmentId property before sending the add request
         delete employee.designationId; // Remove the designationId property before sending the add request
         await addEmployee(employee);
@@ -186,7 +197,6 @@ export default function EmployeeComponent() {
   return (
     <>
       <Navbar onAdd={handleAdd} />
-
       <Container sx={{ mt: 4 }}>
         <Paper sx={{ p: 2 }}>
           {loading ? (

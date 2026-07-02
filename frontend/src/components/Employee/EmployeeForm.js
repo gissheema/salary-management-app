@@ -17,6 +17,8 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
     designation: "",
     designationId: "",
     salary: "",
+    employmentStatus: "",
+    country: "",
   });
 
   useEffect(() => {
@@ -44,6 +46,8 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
       designation: "",
       designationId: "",
       salary: "",
+      country: "",
+      employmentStatus: "",
     });
   };
 

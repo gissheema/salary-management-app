@@ -10,7 +10,6 @@ import {
   TextField,
   Select,
   MenuItem,
-  // InputLabel,
 } from "@mui/material";
 
 const initialState = {
@@ -22,7 +21,24 @@ const initialState = {
   designation: "",
   designationId: "",
   salary: "",
+  country: "",
+  employmentStatus: "",
 };
+
+const countries = [
+  { country: "India", currency: "INR" },
+  { country: "USA", currency: "USD" },
+  { country: "UK", currency: "GBP" },
+  { country: "Canada", currency: "CAD" },
+  { country: "Australia", currency: "AUD" },
+  { country: "Singapore", currency: "SGD" },
+];
+
+const employmentStatuses = [
+  { value: "ACTIVE", label: "Active" },
+  { value: "INACTIVE", label: "Inactive" },
+  { value: "TERMINATED", label: "Terminated" },
+];
 
 export default function EmployeeDialog({
   open,
@@ -74,8 +90,8 @@ export default function EmployeeDialog({
     )
       temp.email = "Invalid email";
 
-    // if (!formData.department.trim())
-    //   temp.department = "Department is required";
+     if (!formData.departmentId.trim())
+       temp.departmentId = "Department is required";
 
     if (
       formData.salary === "" ||
@@ -92,6 +108,8 @@ export default function EmployeeDialog({
     if (!validate()) return;
     onSave({
       ...formData,
+      country: formData.country,
+      employmentStatus: formData.employmentStatus,
       designationId: (formData.designationId),
       departmentId: (formData.departmentId),
       salary: Number(formData.salary),
@@ -150,17 +168,6 @@ export default function EmployeeDialog({
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            {/* <TextField
-              fullWidth
-              label="Department"
-              name="department"
-              value={formData.department?.name}
-              onChange={handleChange}
-              error={!!errors.department}
-              helperText={errors.department}
-            /> */}
-
-              {/* <InputLabel id="department-label">Department</InputLabel> */}
 
             <Select
               fullWidth
@@ -181,7 +188,6 @@ export default function EmployeeDialog({
 
           <Grid size={{ xs: 12, md: 6 }}>
 
-              {/* <InputLabel id="designation-label">Designation</InputLabel> */}
 
             <Select
               fullWidth
@@ -213,7 +219,52 @@ export default function EmployeeDialog({
               helperText={errors.salary}
             />
           </Grid>
+
+
+                  <Grid size={{ xs: 12, md: 6 }}>
+
+
+            <Select
+              fullWidth
+              name="country"
+              value={formData.country}
+              labelId="country-label"
+              label="Country"
+              onChange={handleChange}
+            >
+              {countries.map((country) => (
+                <MenuItem key={country.country} value={country.country}>
+                  {country.country}
+                </MenuItem>
+              ))}
+            </Select>
+
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 6 }}>
+
+
+            <Select
+              fullWidth
+              name="employmentStatus"
+              value={formData.employmentStatus}
+              labelId="employmentStatus-label"
+              label="Employment Status"
+              onChange={handleChange}
+            >
+              {employmentStatuses.map((status) => (
+                <MenuItem key={status.value} value={status.value}>
+                  {status.value}
+                </MenuItem>
+              ))}
+            </Select>
+
+          </Grid>
+
         </Grid>
+
+
+
       </DialogContent>
 
       <DialogActions>

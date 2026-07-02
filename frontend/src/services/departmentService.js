@@ -10,8 +10,7 @@ const API = axios.create({
 export const getDepartments = async (page, pageSize) => {
   return await API.get("/departments", {
     params: {
-      page,
-      pageSize,
+      all: true,
     },
   });
 };
