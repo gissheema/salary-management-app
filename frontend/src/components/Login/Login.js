@@ -10,8 +10,6 @@ export default function Login({ onLogin }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Replace with your authentication logic
-        console.log("Email:", email);
-        console.log("Password:", password);
         try {
             //if (response) {
             // onLogin(data.access); // Pass the token to the parent component

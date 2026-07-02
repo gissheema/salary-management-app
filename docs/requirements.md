@@ -25,7 +25,7 @@ Total number of employees
 Average salary
 Highest and lowest salary
 Salary distribution by department
-Salary distribution by country
+Salary distribution by designation
 Performance
 Support a dataset of 10,000 employees.
 Provide a seed script to populate sample employee data.
@@ -33,7 +33,7 @@ Ensure efficient querying through pagination and database indexing.
 Non-Functional Requirements
 Clean, modular, and maintainable codebase.
 RESTful API using Node.js and TypeScript.
-Relational database (SQLite).
+Relational database (Postgresql).
 Responsive React-based user interface.
 Input validation and consistent error handling.
 Unit tests covering core business logic.
