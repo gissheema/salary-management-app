@@ -7,13 +7,25 @@ export class EmployeeService {
   private repository = new EmployeeRepository();
 
   async create(data: CreateEmployeeDto) {
+
+    const lastEmployee = await this.repository.findLastEmployeeCode();
+    let employeeCode = "EMP00001";
+
+    if (lastEmployee) {
+      const lastNumber = Number(
+        lastEmployee.employeeCode.replace("EMP", "")
+      );
+    employeeCode = `EMP${String(lastNumber + 1).padStart(5, "0")}`;
+    }
+   if(data.employeeCode)
+    {
     const existingEmployee =
       await this.repository.findByEmployeeCode(data.employeeCode);
 
     if (existingEmployee) {
       throw new ConflictError("Employee code already exists.");
     }
-
+  }
     const existingEmail = await this.repository.findByEmail(data.email);
 
     if (existingEmail) {
@@ -24,6 +36,7 @@ export class EmployeeService {
 
     return this.repository.create({
       ...employeeData,
+      employeeCode: employeeCode,
       salary: data.salary,
       joiningDate: new Date(),
       department: { connect: { id: department } },

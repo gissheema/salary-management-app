@@ -13,6 +13,9 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
     lastName: "",
     email: "",
     department: "",
+    departmentId: "",
+    designation: "",
+    designationId: "",
     salary: "",
   });
 
@@ -23,6 +26,8 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
   }, [selectedEmployee])
 
   const handleChange = (e) => {
+
+    console.log("handleChange", e.target.name, e.target.value);
     setEmployee({
       ...employee,
       [e.target.name]: e.target.value,
@@ -37,6 +42,9 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
       lastName: "",
       email: "",
       department: "",
+      departmentId: "",
+      designation: "",
+      designationId: "",
       salary: "",
     });
   };

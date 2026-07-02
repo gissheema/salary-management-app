@@ -58,7 +58,7 @@ const menuItems = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ onLogout }) {
   const location = useLocation();
 
   return (
@@ -106,7 +106,7 @@ export default function Sidebar() {
             <Logout />
           </ListItemIcon>
 
-          <ListItemText primary="Logout" />
+          <ListItemText primary="Logout" onClick={onLogout}  />
         </ListItemButton>
       </List>
     </Drawer>

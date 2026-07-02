@@ -20,6 +20,9 @@ import {
   deleteEmployee,
 } from "../../services/employeeService";
 
+import { getDepartments } from "../../services/departmentService";
+import { getDesignations } from "../../services/designationService";
+
 export default function EmployeeComponent() {
   const [employees, setEmployees] = useState([]);
 
@@ -31,18 +34,22 @@ export default function EmployeeComponent() {
 
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
+  const [departments, setDepartments] = useState([]);
+
+  const [designations, setDesignations] = useState([]);
+
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
 
-    const [rowCount, setRowCount] = useState(0);
+  const [rowCount, setRowCount] = useState(0);
 
-const [paginationModel, setPaginationModel] = useState({
-  page: 0,
-  pageSize: 10,
-});
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10,
+  });
 
 
   const loadEmployees = async () => {
@@ -52,11 +59,11 @@ const [paginationModel, setPaginationModel] = useState({
       const response = await getEmployees(paginationModel.page + 1, paginationModel.pageSize);
 
 
-      if(response.status === 200 &&  response.data){
-      setEmployees(response.data.data);
-      setRowCount(response.data.meta.total);
-      }else {
-      showSnackbar("Failed to load employees", "error");
+      if (response.status === 200 && response.data) {
+        setEmployees(response.data.data);
+        setRowCount(response.data.meta.total);
+      } else {
+        showSnackbar("Failed to load employees", "error");
       }
 
     } catch (e) {
@@ -66,8 +73,49 @@ const [paginationModel, setPaginationModel] = useState({
     }
   };
 
+  const loadDepartments = async () => {
+    try {
+      setLoading(true);
+      const response = await getDepartments(paginationModel.page + 1, paginationModel.pageSize);
+      if (response.status === 200 && response.data) {
+        setDepartments(response.data.data);
+        setRowCount(response.data.meta.total);
+      } else {
+        showSnackbar("Failed to load departments", "error");
+      }
+    } catch (e) {
+      showSnackbar("Unable to load departments", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadDesignations = async () => {
+    try {
+      setLoading(true);
+      const response = await getDesignations(paginationModel.page + 1, paginationModel.pageSize);
+
+
+      if (response.status === 200 && response.data) {
+        setDesignations(response.data.data);
+        setRowCount(response.data.meta.total);
+      } else {
+        showSnackbar("Failed to load designations", "error");
+      }
+
+    } catch (e) {
+      showSnackbar("Unable to load designations", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
   useEffect(() => {
     loadEmployees();
+    loadDepartments();
+    loadDesignations();
   }, [paginationModel]);
 
   const showSnackbar = (message, severity) => {
@@ -102,7 +150,11 @@ const [paginationModel, setPaginationModel] = useState({
         showSnackbar("Employee Updated", "success");
       } else {
         delete employee.id; // Remove the id property before sending the add request
-        delete employee.name
+        delete employee.name;
+        employee.country = 'India';
+        employee.currency = 'INR';
+        employee.departmentId = employee.department.id;
+        employee.designationId = employee.designation.id;
         console.log(employee);
 
         debugger;
@@ -157,6 +209,8 @@ const [paginationModel, setPaginationModel] = useState({
       <EmployeeDialog
         open={openDialog}
         employee={selectedEmployee}
+        departments={departments}
+        designations={designations}
         onClose={() => setOpenDialog(false)}
         onSave={saveEmployee}
       />

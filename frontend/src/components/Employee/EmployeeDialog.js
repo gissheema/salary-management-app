@@ -8,6 +8,8 @@ import {
   Button,
   Grid,
   TextField,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 const initialState = {
@@ -15,17 +17,21 @@ const initialState = {
   name: "",
   email: "",
   department: "",
+  departmentId: "",
+  designation: "",
+  designationId: "",
   salary: "",
 };
 
 export default function EmployeeDialog({
   open,
   employee,
+  departments,
+  designations,
   onClose,
   onSave,
 }) {
   const [formData, setFormData] = useState(initialState);
-
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -34,7 +40,10 @@ export default function EmployeeDialog({
     } else {
       setFormData(initialState);
     }
-  }, [employee, open]);
+    console.log("departments", departments);
+    console.log("designations", designations);
+
+  }, [employee, open, departments, designations]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -108,7 +117,7 @@ export default function EmployeeDialog({
           <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
-              label="Employee Name"
+              label="First Name"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
@@ -142,7 +151,7 @@ export default function EmployeeDialog({
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
+            {/* <TextField
               fullWidth
               label="Department"
               name="department"
@@ -150,8 +159,44 @@ export default function EmployeeDialog({
               onChange={handleChange}
               error={!!errors.department}
               helperText={errors.department}
-            />
+            /> */}
+
+
+            <Select
+              fullWidth
+              name="departmentId"
+              value={formData.departmentId}
+              label="Department"
+              onChange={handleChange}
+            >
+              {departments.map((dept) => (
+                <MenuItem key={dept.id} value={dept.id}>
+                  {dept.name}
+                </MenuItem>
+              ))}
+            </Select>
+
           </Grid>
+
+          <Grid size={{ xs: 12, md: 6 }}>
+
+
+            <Select
+              fullWidth
+              name="designationId"
+              value={formData.designationId}
+              label="Designation"
+              onChange={handleChange}
+            >
+              {designations.map((designation) => (
+                <MenuItem key={designation.id} value={designation.id}>
+                  {designation.name}
+                </MenuItem>
+              ))}
+            </Select>
+
+          </Grid>
+
 
           <Grid size={{ xs: 12, md: 6 }}>
             <TextField

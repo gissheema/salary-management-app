@@ -1,18 +1,18 @@
 import { Router } from "express";
-import { EmployeeController } from "./employee.controller";
+import { DepartmentController } from "./department.controller";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { validate } from "../../middleware/validation.middleware";
 import {
-  createEmployeeSchema
-} from "./employee.validator";
+  createDepartmentSchema
+} from "./department.validator";
 
 const router = Router();
 
-const controller = new EmployeeController();
+const controller = new DepartmentController();
 
 router.post(
   "/",
- // validate(createEmployeeSchema),
+  validate(createDepartmentSchema),
   asyncHandler(controller.create)
 );
 

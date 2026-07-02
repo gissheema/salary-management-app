@@ -16,6 +16,7 @@ export const getEmployees = async (page, pageSize) => {
   });
 };
 
+
 export const getEmployee = async (id) => {
   return await API.get(`/${id}`);
 };

@@ -12,6 +12,17 @@ export class EmployeeRepository {
     });
   }
 
+  async findLastEmployeeCode() {
+    return prisma.employee.findFirst({
+      orderBy: {
+        employeeCode: "desc",
+      },
+      select: {
+        employeeCode: true,
+      },
+    });
+  }
+
   async findByEmployeeCode(employeeCode: string) {
     return prisma.employee.findUnique({
       where: { employeeCode },
