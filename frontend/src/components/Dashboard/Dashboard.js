@@ -71,7 +71,7 @@ export default function Dashboard() {
     <Box p={3}>
       <Typography variant="h4" mb={3}   sx={{ marginBottom: '20px' }}
 >
-        Employee Dashboard
+         Dashboard
       </Typography>
 
       <Grid container spacing={3}>

@@ -90,8 +90,8 @@ export default function EmployeeDialog({
     )
       temp.email = "Invalid email";
 
-     if (!formData.departmentId.trim())
-       temp.departmentId = "Department is required";
+    if (!formData.departmentId.trim())
+      temp.departmentId = "Department is required";
 
     if (
       formData.salary === "" ||
@@ -177,6 +177,10 @@ export default function EmployeeDialog({
               label="Department"
               onChange={handleChange}
             >
+              <MenuItem value="">
+                <em>Select Department</em>
+              </MenuItem>
+
               {departments.map((dept) => (
                 <MenuItem key={dept.id} value={dept.id}>
                   {dept.name}
@@ -197,6 +201,10 @@ export default function EmployeeDialog({
               label="Designation"
               onChange={handleChange}
             >
+              <MenuItem value="">
+                <em>Select Designation</em>
+              </MenuItem>
+
               {designations.map((designation) => (
                 <MenuItem key={designation.id} value={designation.id}>
                   {designation.name}
@@ -221,7 +229,7 @@ export default function EmployeeDialog({
           </Grid>
 
 
-                  <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, md: 6 }}>
 
 
             <Select
@@ -232,6 +240,10 @@ export default function EmployeeDialog({
               label="Country"
               onChange={handleChange}
             >
+              <MenuItem value="">
+                <em>Select Country</em>
+              </MenuItem>
+
               {countries.map((country) => (
                 <MenuItem key={country.country} value={country.country}>
                   {country.country}
@@ -252,6 +264,10 @@ export default function EmployeeDialog({
               label="Employment Status"
               onChange={handleChange}
             >
+              <MenuItem value="">
+                <em>Select Status</em>
+              </MenuItem>
+
               {employmentStatuses.map((status) => (
                 <MenuItem key={status.value} value={status.value}>
                   {status.value}
