@@ -10,8 +10,7 @@ const API = axios.create({
 export const getDesignations = async (page, pageSize) => {
   return await API.get("/designations", {
     params: {
-      page,
-      pageSize,
+      all: true,
     },
   });
 };
