@@ -11,7 +11,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 export default function App() {
 
-    const [token, setToken] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
@@ -35,35 +35,22 @@ export default function App() {
     <>
       <div className="App">
         <BrowserRouter>
+          {token ? (
+            <div className="layout" token={token} >
+              <div className="sidebar">
 
-        {token ? (
-
-
-        <div className="layout" token={token} >
-            <div className="sidebar">
-
-              <SideBar onLogout={handleLogout}/>
+                <SideBar onLogout={handleLogout} />
+              </div>
+              <div className="main-content">
+                <Routes>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/employees" element={<EmployeeComponent />} />
+                </Routes>
+              </div>
             </div>
-            <div className="main-content">
-              <Routes>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/employees" element={<EmployeeComponent />} />
-              </Routes>
-            </div>
-          </div>
-
-
-
-
-
-
-
-      ) : (
-        <Login onLogin={handleLogin} />
-      )}
-
-
-          
+          ) : (
+            <Login onLogin={handleLogin} />
+          )}
         </BrowserRouter>
       </div>
     </>

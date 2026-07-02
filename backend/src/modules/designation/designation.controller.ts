@@ -22,7 +22,8 @@ export class DesignationController {
 
     const designations = await service.getAll(
       pagination.page,
-      pagination.limit
+      pagination.limit,
+      req.query.all === "true"
     );
 
     const meta = {
