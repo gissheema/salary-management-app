@@ -9,6 +9,8 @@ import {
   Typography,
   Box,
   Divider,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 import {
@@ -23,7 +25,7 @@ import {
 
 import { Link, useLocation } from "react-router-dom";
 
-const drawerWidth = 260;
+export const drawerWidth = 260;
 
 const menuItems = [
   {
@@ -58,21 +60,17 @@ const menuItems = [
   },
 ];
 
-export default function Sidebar({ onLogout }) {
+export default function Sidebar({
+  mobileOpen,
+  handleDrawerToggle,
+  onLogout,
+}) {
   const location = useLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: drawerWidth,
-          boxSizing: "border-box",
-        },
-      }}
-    >
+  const drawerContent = (
+    <>
       <Toolbar>
         <Typography variant="h5" fontWeight="bold">
           SMA
@@ -88,9 +86,9 @@ export default function Sidebar({ onLogout }) {
             component={Link}
             to={item.path}
             selected={location.pathname === item.path}
+            onClick={isMobile ? handleDrawerToggle : undefined}
           >
             <ListItemIcon>{item.icon}</ListItemIcon>
-
             <ListItemText primary={item.text} />
           </ListItemButton>
         ))}
@@ -101,16 +99,34 @@ export default function Sidebar({ onLogout }) {
       <Divider />
 
       <List>
-        <ListItemButton>
+        <ListItemButton onClick={onLogout}>
           <ListItemIcon>
             <Logout />
           </ListItemIcon>
-
-          <ListItemText primary="Logout" onClick={onLogout}  />
+          <ListItemText primary="Logout" />
         </ListItemButton>
       </List>
+    </>
+  );
+
+  return (
+    <Drawer
+      variant={isMobile ? "temporary" : "permanent"}
+      open={isMobile ? mobileOpen : true}
+      onClose={handleDrawerToggle}
+      ModalProps={{
+        keepMounted: true,
+      }}
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: drawerWidth,
+          boxSizing: "border-box",
+        },
+      }}
+    >
+      {drawerContent}
     </Drawer>
   );
 }
-
-export { drawerWidth };
