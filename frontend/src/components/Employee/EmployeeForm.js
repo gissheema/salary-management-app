@@ -26,8 +26,6 @@ function EmployeeForm({ saveEmployee, selectedEmployee }) {
   }, [selectedEmployee])
 
   const handleChange = (e) => {
-
-    console.log("handleChange", e.target.name, e.target.value);
     setEmployee({
       ...employee,
       [e.target.name]: e.target.value,
