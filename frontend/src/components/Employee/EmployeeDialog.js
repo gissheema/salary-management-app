@@ -10,6 +10,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  // InputLabel,
 } from "@mui/material";
 
 const initialState = {
@@ -40,9 +41,6 @@ export default function EmployeeDialog({
     } else {
       setFormData(initialState);
     }
-    console.log("departments", departments);
-    console.log("designations", designations);
-
   }, [employee, open, departments, designations]);
 
   const handleChange = (e) => {
@@ -92,9 +90,10 @@ export default function EmployeeDialog({
 
   const handleSave = () => {
     if (!validate()) return;
-
     onSave({
       ...formData,
+      designationId: (formData.designationId),
+      departmentId: (formData.departmentId),
       salary: Number(formData.salary),
     });
   };
@@ -161,11 +160,13 @@ export default function EmployeeDialog({
               helperText={errors.department}
             /> */}
 
+              {/* <InputLabel id="department-label">Department</InputLabel> */}
 
             <Select
               fullWidth
               name="departmentId"
               value={formData.departmentId}
+              labelId="department-label"
               label="Department"
               onChange={handleChange}
             >
@@ -180,11 +181,13 @@ export default function EmployeeDialog({
 
           <Grid size={{ xs: 12, md: 6 }}>
 
+              {/* <InputLabel id="designation-label">Designation</InputLabel> */}
 
             <Select
               fullWidth
               name="designationId"
               value={formData.designationId}
+              labelId="designation-label"
               label="Designation"
               onChange={handleChange}
             >

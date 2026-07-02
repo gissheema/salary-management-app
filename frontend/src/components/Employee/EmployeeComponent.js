@@ -151,14 +151,12 @@ export default function EmployeeComponent() {
       } else {
         delete employee.id; // Remove the id property before sending the add request
         delete employee.name;
+        employee.department = employee.departmentId; // Remove the department property before sending the update request
+        employee.designation = employee.designationId; // Remove the designation property before sending the update request
         employee.country = 'India';
         employee.currency = 'INR';
-        employee.departmentId = employee.department.id;
-        employee.designationId = employee.designation.id;
-        console.log(employee);
-
-        debugger;
-
+        delete employee.departmentId; // Remove the departmentId property before sending the add request
+        delete employee.designationId; // Remove the designationId property before sending the add request
         await addEmployee(employee);
         showSnackbar("Employee Added", "success");
       }
